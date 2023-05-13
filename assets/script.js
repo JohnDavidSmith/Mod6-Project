@@ -3,8 +3,9 @@ var fetchButton = document.getElementById('fetch-button');
 var city = "Toronto";
 var APIKey = "220446bbfe0cd21fc71d987d2f3b237f";
 
-function getApi() 
-  var requestUrl ='http://api.openweathermap.org/data/2.5/weather?q="Toronto,ON,CA"&appid="220446bbfe0cd21fc71d987d2f3b237f"';
+//function getApi(){ 
+  console.log("get API function running");
+  var requestUrl ='https://api.openweathermap.org/data/2.5/weather?q=Toronto,ON,CA&appid=220446bbfe0cd21fc71d987d2f3b237f';
 
 
   fetch(requestUrl, {
@@ -42,3 +43,4 @@ function getApi()
     });
 
 fetchButton.addEventListener('click', getApi);
+ //}
