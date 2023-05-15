@@ -99,7 +99,7 @@ function getApi1() {
         
         for (i = 0; i < data1.list.length; i++) {
           var forecastObject = data1.list[i];
-          if (forecastObject.dt_txt.includes("12:00:00")) {
+          if (forecastObject.dt_txt.includes("00:00:00")) {
             // console.log(forecastObject);
             var forecastCard = document.createElement("div");
             var cityName = document.createElement('h3');
@@ -133,6 +133,7 @@ function getApi1() {
 
 function saveSearch(city) {
   console.log(city);
+  
   // Store the search query in local storage
   localStorage.setItem('lastSearch', city);
 
@@ -183,7 +184,7 @@ function loadSavedSearches() {
   var searchHistoryDiv = document.getElementById('search-history');
 
   searchHistoryDiv.innerHTML = '';
-
+ 
   for (var i = 0; i < searchHistory.length; i++) {
     var button = document.createElement('button');
     button.textContent = searchHistory[i];
