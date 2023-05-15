@@ -151,7 +151,6 @@ function saveSearch(city) {
 
   // TODO: Attach click event that calls API for the city
   // HINT: Use data- atrributes
-
   button.addEventListener('click', function () {
     var cityName = this.getAttribute('data-city');
     console.log('Fetching data for city: ' + cityName);
@@ -161,12 +160,69 @@ function saveSearch(city) {
       .then(data => {
         console.log(data);
         // TODO: Display the weather data on the page
+
+        function displayWeatherData(data){
+  
+          var cityName = document.createElement('h3');
+          var currentDate = document.createElement('h3');
+          var currentIcon = document.createElement('h3');
+          var currentTemp = document.createElement('p');
+          var currentHumidity = document.createElement('p');
+          var currentWindSpeed = document.createElement('p');
+        
+          cityName.textContent = data.name;
+          currentDate.textContent = new Date(data.dt * 1000).toLocaleDateString();
+          currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
+          currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
+          currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
+          currentWindSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+        
+          currentContainer.append(cityName);
+          currentContainer.append(currentDate);
+          currentContainer.append(currentIcon);
+          currentContainer.append(currentTemp);
+          currentContainer.append(currentHumidity);
+          currentContainer.append(currentWindSpeed);   
+          
+          for (i = 0; i < data1.list.length; i++) {
+            var forecastObject = data1.list[i];
+            if (forecastObject.dt_txt.includes("00:00:00")) {
+              // console.log(forecastObject);
+              var forecastCard = document.createElement("div");
+              var cityName = document.createElement('h3');
+              var currentDate = document.createElement('h3');
+              var currentIcon = document.createElement('h3');
+              var currentTemp = document.createElement('p');
+              var currentHumidity = document.createElement('p');
+              var currentWindSpeed = document.createElement('p');
+  
+              cityName.textContent = forecastObject.name;
+              currentDate.textContent = new Date(forecastObject.dt * 1000).toLocaleDateString();
+              currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${forecastObject.weather[0].icon}.png">`;
+              currentTemp.textContent = `Temperature: ${Math.round(forecastObject.main.temp - 273.15)}°C`;
+              currentHumidity.textContent = `Humidity: ${forecastObject.main.humidity}%`;
+              currentWindSpeed.textContent = `Wind Speed: ${forecastObject.wind.speed} m/s`;
+  
+              forecastCard.append(cityName);
+              forecastCard.append(currentDate);
+              forecastCard.append(currentIcon);
+              forecastCard.append(currentTemp);
+              forecastCard.append(currentHumidity);
+              forecastCard.append(currentWindSpeed);
+              next1Container.append(forecastCard);
+  
+            } 
+
+        }
+
         displayWeatherData(data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+      }
+
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
   });
+
 
   // TODO: Append button to a div in your HTML
   var searchHistoryDiv = document.getElementById('search-history');
@@ -198,6 +254,31 @@ function loadSavedSearches() {
         .then(data => {
           console.log(data);
           // TODO: Display the weather data on the page
+          
+          function displayWeatherData(data){
+            currentContainer.innerHTML = "";
+            var cityName = document.createElement('h3');
+            var currentDate = document.createElement('h3');
+            var currentIcon = document.createElement('h3');
+            var currentTemp = document.createElement('p');
+            var currentHumidity = document.createElement('p');
+            var currentWindSpeed = document.createElement('p');
+          
+            cityName.textContent = data.name;
+            currentDate.textContent = new Date(data.dt * 1000).toLocaleDateString();
+            currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
+            currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
+            currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
+            currentWindSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+          
+            currentContainer.append(cityName);
+            currentContainer.append(currentDate);
+            currentContainer.append(currentIcon);
+            currentContainer.append(currentTemp);
+            currentContainer.append(currentHumidity);
+            currentContainer.append(currentWindSpeed);
+          }
+                    
           displayWeatherData(data);
         })
         .catch(error => {
