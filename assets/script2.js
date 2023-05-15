@@ -69,7 +69,7 @@ fetchButton.addEventListener('click', getApi);
 function getApi1() {
   console.log("get API function running");
   var requestUrl1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
-
+  const submitBtn = document.querySelector('#submitBtn');
   submitBtn.addEventListener('click', function (event) {
     event.preventDefault();
 
@@ -186,11 +186,11 @@ function loadSavedSearches() {
   // Enter code that grabs array of citites from localStorage and loads them onto page as buttons
   var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
   var searchHistoryDiv = document.getElementById('search-history');
+
   for (var i = 0; i < searchHistory.length; i++) {
     var button = document.createElement('button');
     button.textContent = searchHistory[i];
     button.setAttribute('data-city', searchHistory[i]);
-
     button.addEventListener('click', function () {
       var cityName = this.getAttribute('data-city');
       console.log('Fetching data for city: ' + cityName);
@@ -207,7 +207,13 @@ function loadSavedSearches() {
         });
     });
 
+    if (searchHistory.length >= 8) {
+      // Remove oldest city if more than 8 saved
+      searchHistory.shift();
+    }
+
     searchHistoryDiv.appendChild(button);
+
   }
 }
 window.addEventListener('load', function () {
