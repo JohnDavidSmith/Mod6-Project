@@ -103,4 +103,4 @@ You are required to submit BOTH of the following for review:
 
 ## Screenshot
 
-![Screenshot of the error and JS code](./assets/Screenshot%20error%20and%20JS%20file.png)
+![Screenshot of the error and JS code](./assets/Screenshot%20(10).png)
