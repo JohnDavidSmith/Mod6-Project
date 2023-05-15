@@ -7,9 +7,6 @@ var cityName = "";
 var APIKey = "220446bbfe0cd21fc71d987d2f3b237f";
 const submitBtn = document.querySelector('#submitBtn');
 
-
-
-
 //For Current Weather
 function getApi(event) {
   console.log("get API function running");
@@ -18,124 +15,122 @@ function getApi(event) {
 
   const form = document.querySelector('form');
 
-    cityName = document.querySelector('#cityName').value;
-    requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
+  cityName = document.querySelector('#cityName').value;
+  requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
 
-    // Make API request with new URL
-    fetch(requestUrl, {
-      cache: 'reload',
+  // Make API request with new URL
+  fetch(requestUrl, {
+    cache: 'reload',
+  })
+    .then(function (response) {
+      console.log(response);
+      return response.json();
     })
-      .then(function (response) {
-        console.log(response);
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
-        // Clear previous search results
-        currentContainer.innerHTML = "";
-        // Create and append new elements for the search results
-        var cityName = document.createElement('h3');
-        var currentDate = document.createElement('h3');
-        var currentIcon = document.createElement('h3');
-        var currentTemp = document.createElement('p');
-        var currentHumidity = document.createElement('p');
-        var currentWindSpeed = document.createElement('p');
+    .then(function (data) {
+      console.log(data);
+      // Clear previous search results
+      currentContainer.innerHTML = "";
+      // Create and append new elements for the search results
+      var cityName = document.createElement('h3');
+      var currentDate = document.createElement('h3');
+      var currentIcon = document.createElement('h3');
+      var currentTemp = document.createElement('p');
+      var currentHumidity = document.createElement('p');
+      var currentWindSpeed = document.createElement('p');
 
-        cityName.textContent = data.name;
-        currentDate.textContent = new Date().toLocaleDateString();
-        currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
-        currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
-        currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
-        currentWindSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+      cityName.textContent = data.name;
+      currentDate.textContent = new Date().toLocaleDateString();
+      currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
+      currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
+      currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
+      currentWindSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
 
-        currentContainer.append(cityName);
-        currentContainer.append(currentDate);
-        currentContainer.append(currentIcon);
-        currentContainer.append(currentTemp);
-        currentContainer.append(currentHumidity);
-        currentContainer.append(currentWindSpeed);
-        getApi1();
-      })
-      .catch(function (error) {
-        console.log(error);
-        currentContainer.innerHTML = `<p>Sorry, we could not find the weather data for ${cityName}. Please try again.</p>`;
-      });
+      currentContainer.append(cityName);
+      currentContainer.append(currentDate);
+      currentContainer.append(currentIcon);
+      currentContainer.append(currentTemp);
+      currentContainer.append(currentHumidity);
+      currentContainer.append(currentWindSpeed);
+      getApi1();
+    })
+    .catch(function (error) {
+      console.log(error);
+      currentContainer.innerHTML = `<p>Sorry, we could not find the weather data for ${cityName}. Please try again.</p>`;
+    });
 }
 submitBtn.addEventListener('click', getApi);
 
 //For Forecast Weather
-
 function getApi1() {
   console.log("get API function running");
   var requestUrl1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
 
-
-    cityName = document.querySelector('#cityName').value;
-    requestUrl1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
-    saveSearch(cityName);
-    // Make API request with new URL
-    fetch(requestUrl1, {
-      cache: 'reload',
+  cityName = document.querySelector('#cityName').value;
+  requestUrl1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
+  saveSearch(cityName);
+  // Make API request with new URL
+  fetch(requestUrl1, {
+    cache: 'reload',
+  })
+    .then(function (response) {
+      console.log(response);
+      return response.json();
     })
-      .then(function (response) {
-        console.log(response);
-        return response.json();
-      })
-      .then(data => {
-        var lat = data.coord.lat;
-        var lon = data.coord.lon;
-        forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
-        return fetch(forecastUrl);
-      })
+    .then(data => {
+      var lat = data.coord.lat;
+      var lon = data.coord.lon;
+      forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+      return fetch(forecastUrl);
+    })
 
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data1) {
-        // console.log(data1);
-        // Clear previous search results
-        next1Container.innerHTML = "";
-        // Create and append new elements for the search results
-        
-        for (i = 0; i < data1.list.length; i++) {
-          var forecastObject = data1.list[i];
-          if (forecastObject.dt_txt.includes("00:00:00")) {
-            // console.log(forecastObject);
-            var forecastCard = document.createElement("div");
-            var cityName = document.createElement('h3');
-            var currentDate = document.createElement('h3');
-            var currentIcon = document.createElement('h3');
-            var currentTemp = document.createElement('p');
-            var currentHumidity = document.createElement('p');
-            var currentWindSpeed = document.createElement('p');
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data1) {
+      // console.log(data1);
+      // Clear previous search results
+      next1Container.innerHTML = "";
+      // Create and append new elements for the search results
 
-            cityName.textContent = forecastObject.name;
-            currentDate.textContent = forecastObject.dt_txt;
-            console.log(forecastObject.dt);
-            console.log(forecastObject);
-            currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${forecastObject.weather[0].icon}.png">`;
-            currentTemp.textContent = `Temperature: ${Math.round(forecastObject.main.temp - 273.15)}°C`;
-            currentHumidity.textContent = `Humidity: ${forecastObject.main.humidity}%`;
-            currentWindSpeed.textContent = `Wind Speed: ${forecastObject.wind.speed} m/s`;
+      for (i = 0; i < data1.list.length; i++) {
+        var forecastObject = data1.list[i];
+        if (forecastObject.dt_txt.includes("00:00:00")) {
+          // console.log(forecastObject);
+          var forecastCard = document.createElement("div");
+          var cityName = document.createElement('h3');
+          var currentDate = document.createElement('h3');
+          var currentIcon = document.createElement('h3');
+          var currentTemp = document.createElement('p');
+          var currentHumidity = document.createElement('p');
+          var currentWindSpeed = document.createElement('p');
 
-            forecastCard.append(cityName);
-            forecastCard.append(currentDate);
-            forecastCard.append(currentIcon);
-            forecastCard.append(currentTemp);
-            forecastCard.append(currentHumidity);
-            forecastCard.append(currentWindSpeed);
-            next1Container.append(forecastCard);
+          cityName.textContent = forecastObject.name;
+          currentDate.textContent = forecastObject.dt_txt;
+          console.log(forecastObject.dt_txt);
+          console.log(forecastObject);
+          currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${forecastObject.weather[0].icon}.png">`;
+          currentTemp.textContent = `Temperature: ${Math.round(forecastObject.main.temp - 273.15)}°C`;
+          currentHumidity.textContent = `Humidity: ${forecastObject.main.humidity}%`;
+          currentWindSpeed.textContent = `Wind Speed: ${forecastObject.wind.speed} m/s`;
 
-          }
+          forecastCard.append(cityName);
+          forecastCard.append(currentDate);
+          forecastCard.append(currentIcon);
+          forecastCard.append(currentTemp);
+          forecastCard.append(currentHumidity);
+          forecastCard.append(currentWindSpeed);
+          next1Container.append(forecastCard);
+
         }
-      });
-    }
+      }
+    });
+}
 
 // TODO: finish implementing saveSearch
 
 function saveSearch(city) {
   console.log(city);
-  
+
   // Store the search query in local storage
   localStorage.setItem('lastSearch', city);
 
@@ -163,29 +158,29 @@ function saveSearch(city) {
         console.log(data);
         // TODO: Display the weather data on the page
 
-        function displayWeatherData(data){
-  
+        function displayWeatherData(data) {
+
           var cityName = document.createElement('h3');
           var currentDate = document.createElement('h3');
           var currentIcon = document.createElement('h3');
           var currentTemp = document.createElement('p');
           var currentHumidity = document.createElement('p');
           var currentWindSpeed = document.createElement('p');
-        
+
           cityName.textContent = data.name;
           currentDate.textContent = new Date(data.dt * 1000).toLocaleDateString();
           currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
           currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
           currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
           currentWindSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
-        
+
           currentContainer.append(cityName);
           currentContainer.append(currentDate);
           currentContainer.append(currentIcon);
           currentContainer.append(currentTemp);
           currentContainer.append(currentHumidity);
-          currentContainer.append(currentWindSpeed);   
-          
+          currentContainer.append(currentWindSpeed);
+
           for (i = 0; i < data.list.length; i++) {
             var forecastObject = data.list[i];
             if (forecastObject.dt_txt.includes("00:00:00")) {
@@ -197,14 +192,14 @@ function saveSearch(city) {
               var currentTemp = document.createElement('p');
               var currentHumidity = document.createElement('p');
               var currentWindSpeed = document.createElement('p');
-  
+
               cityName.textContent = forecastObject.name;
               currentDate.textContent = new Date(forecastObject.dt * 1000).toLocaleDateString();
               currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${forecastObject.weather[0].icon}.png">`;
               currentTemp.textContent = `Temperature: ${Math.round(forecastObject.main.temp - 273.15)}°C`;
               currentHumidity.textContent = `Humidity: ${forecastObject.main.humidity}%`;
               currentWindSpeed.textContent = `Wind Speed: ${forecastObject.wind.speed} m/s`;
-  
+
               forecastCard.append(cityName);
               forecastCard.append(currentDate);
               forecastCard.append(currentIcon);
@@ -212,18 +207,15 @@ function saveSearch(city) {
               forecastCard.append(currentHumidity);
               forecastCard.append(currentWindSpeed);
               next1Container.append(forecastCard);
-  
-            } 
 
+            }
+          }
+          displayWeatherData(data);
         }
-
-        displayWeatherData(data);
-      }
-
-  })
-  .catch(error => {
-    console.error('Error fetching data:', error);
-  });
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
 
   })
   // TODO: Append button to a div in your HTML
@@ -249,7 +241,7 @@ function loadSavedSearches() {
   var searchHistoryDiv = document.getElementById('search-history');
 
   searchHistoryDiv.innerHTML = '';
- 
+
   for (var i = 0; i < searchHistory.length; i++) {
     var button = document.createElement('button');
     button.textContent = searchHistory[i];
@@ -263,8 +255,8 @@ function loadSavedSearches() {
         .then(data => {
           console.log(data);
           // TODO: Display the weather data on the page
-          
-          function displayWeatherData(data){
+
+          function displayWeatherData(data) {
             currentContainer.innerHTML = "";
             var cityName = document.createElement('h3');
             var currentDate = document.createElement('h3');
@@ -272,14 +264,14 @@ function loadSavedSearches() {
             var currentTemp = document.createElement('p');
             var currentHumidity = document.createElement('p');
             var currentWindSpeed = document.createElement('p');
-          
+
             cityName.textContent = data.name;
             currentDate.textContent = new Date(data.dt * 1000).toLocaleDateString();
             currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
             currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
             currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
             currentWindSpeed.textContent = `Wind Speed: ${data.wind.speed} m/s`;
-          
+
             currentContainer.append(cityName);
             currentContainer.append(currentDate);
             currentContainer.append(currentIcon);
@@ -287,7 +279,7 @@ function loadSavedSearches() {
             currentContainer.append(currentHumidity);
             currentContainer.append(currentWindSpeed);
           }
-                    
+
           displayWeatherData(data);
         })
         .catch(error => {
