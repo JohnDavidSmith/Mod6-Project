@@ -5,18 +5,18 @@ var fetchButton = document.getElementById('cityName');
 var fetchButton1 = document.getElementById('cityName1');
 var cityName = "";
 var APIKey = "220446bbfe0cd21fc71d987d2f3b237f";
+const submitBtn = document.querySelector('#submitBtn');
+
+
 
 
 //For Current Weather
-function getApi() {
+function getApi(event) {
   console.log("get API function running");
+  event.preventDefault();
   var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
 
   const form = document.querySelector('form');
-  const submitBtn = document.querySelector('#submitBtn');
-
-  submitBtn.addEventListener('click', function (event) {
-    event.preventDefault();
 
     cityName = document.querySelector('#cityName').value;
     requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
@@ -54,24 +54,21 @@ function getApi() {
         currentContainer.append(currentTemp);
         currentContainer.append(currentHumidity);
         currentContainer.append(currentWindSpeed);
-
+        getApi1();
       })
       .catch(function (error) {
         console.log(error);
         currentContainer.innerHTML = `<p>Sorry, we could not find the weather data for ${cityName}. Please try again.</p>`;
       });
-  });
 }
-fetchButton.addEventListener('click', getApi);
+submitBtn.addEventListener('click', getApi);
 
 //For Forecast Weather
 
 function getApi1() {
   console.log("get API function running");
   var requestUrl1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
-  const submitBtn = document.querySelector('#submitBtn');
-  submitBtn.addEventListener('click', function (event) {
-    event.preventDefault();
+
 
     cityName = document.querySelector('#cityName').value;
     requestUrl1 = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + APIKey;
@@ -99,7 +96,7 @@ function getApi1() {
         // Clear previous search results
         next1Container.innerHTML = "";
         // Create and append new elements for the search results
-
+        
         for (i = 0; i < data1.list.length; i++) {
           var forecastObject = data1.list[i];
           if (forecastObject.dt_txt.includes("12:00:00")) {
@@ -130,9 +127,7 @@ function getApi1() {
           }
         }
       });
-  });
-}
-fetchButton.addEventListener('click', getApi1);
+    }
 
 // TODO: finish implementing saveSearch
 
@@ -186,6 +181,8 @@ function loadSavedSearches() {
   // Enter code that grabs array of citites from localStorage and loads them onto page as buttons
   var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
   var searchHistoryDiv = document.getElementById('search-history');
+
+  searchHistoryDiv.innerHTML = '';
 
   for (var i = 0; i < searchHistory.length; i++) {
     var button = document.createElement('button');
