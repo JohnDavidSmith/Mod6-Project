@@ -110,7 +110,9 @@ function getApi1() {
             var currentWindSpeed = document.createElement('p');
 
             cityName.textContent = forecastObject.name;
-            currentDate.textContent = new Date(forecastObject.dt * 1000).toLocaleDateString();
+            currentDate.textContent = forecastObject.dt_txt;
+            console.log(forecastObject.dt);
+            console.log(forecastObject);
             currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${forecastObject.weather[0].icon}.png">`;
             currentTemp.textContent = `Temperature: ${Math.round(forecastObject.main.temp - 273.15)}°C`;
             currentHumidity.textContent = `Humidity: ${forecastObject.main.humidity}%`;
@@ -184,8 +186,8 @@ function saveSearch(city) {
           currentContainer.append(currentHumidity);
           currentContainer.append(currentWindSpeed);   
           
-          for (i = 0; i < data1.list.length; i++) {
-            var forecastObject = data1.list[i];
+          for (i = 0; i < data.list.length; i++) {
+            var forecastObject = data.list[i];
             if (forecastObject.dt_txt.includes("00:00:00")) {
               // console.log(forecastObject);
               var forecastCard = document.createElement("div");
@@ -223,13 +225,20 @@ function saveSearch(city) {
     console.error('Error fetching data:', error);
   });
 
-
+  })
   // TODO: Append button to a div in your HTML
   var searchHistoryDiv = document.getElementById('search-history');
   searchHistoryDiv.appendChild(button);
 
   // TODO: Push city into an array and save to localStorage
   var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+
+  if (searchHistory.length >= 8) {
+    // Remove oldest city if more than 8 saved
+    searchHistory.shift();
+  }
+
   searchHistory.push(city);
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 }
