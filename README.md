@@ -44,7 +44,7 @@ The following image shows the web application's appearance and functionality:
 
 ## Contents 
 
-* This Weather Dashboard application has one button to enter the city name and eight buttons of saved previous searched city names. 
+* This Weather Dashboard application has one button to enter the city name and eight buttons of saved previous searched city names you can use them to display the weather as well. 
 
 ## Installation 
 
