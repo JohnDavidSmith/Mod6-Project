@@ -364,7 +364,7 @@ body {
 
 h1,
 h2,
-h3,
+h3
 h4,
 h5,
 h6 {
@@ -397,7 +397,7 @@ h6 {
 }
 
 p {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   margin: 0 0 1rem;
   line-height: 1.5;
 }
@@ -1151,10 +1151,17 @@ label form [type='radio'] {
 }
 
 .container {
+  display: flex;
   width: 85%;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.total {
+display: flex;
+
+
 }
 
 .container.container-fluid {
@@ -1225,8 +1232,9 @@ label form [type='radio'] {
 [class*='col-'] {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 40px;
+  padding-left: 10px;
+  margin: 0%;
 }
 
 .col-auto {

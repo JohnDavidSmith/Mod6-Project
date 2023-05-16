@@ -38,69 +38,43 @@ The following image shows the web application's appearance and functionality:
 
 ![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
 
-## Grading Requirements
+## Description 
 
-> **Note**: If a Challenge assignment submission is marked as “0”, it is considered incomplete and will not count towards your graduation requirements. Examples of incomplete submissions include the following:
->
-> * A repository that has no code
->
-> * A repository that includes a unique name but nothing else
->
-> * A repository that includes only a README file but nothing else
->
-> * A repository that only includes starter code
+* This is a Weather Dashboard can display the current day and five days forecast for any city around the world by entering the city name only.
 
-This Challenge is graded based on the following criteria: 
+## Contents 
 
-### Technical Acceptance Criteria: 40%
+* This Weather Dashboard application has one button to enter the city name and eight buttons of saved previous searched city names. 
 
-* Satisfies all of the above acceptance criteria plus the following:
+## Installation 
 
-    * Uses the OpenWeather API to retrieve weather data.
+* Doesn't need any instillation just enter the city name and press search button you will get the current day and five days forecast weather for that city.
+  
+## Usage 
 
-    * Uses `localStorage` to store persistent data.
-
-### Deployment: 32%
-
-* Application deployed at live URL.
-
-* Application loads with no errors.
-
-* Application GitHub URL submitted.
-
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
-
-- - -
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+* This application can be used by anyone wants to know the weather of any city around the world it will give the current day and five days weather forecast. You have to notice that if you are using the East Canada and USA time (EST) the first day of the five day forecast will be the same current day because of the time zone difference between EST and the weather company which provide the data. The next day will be visible in the five days forecast box after 8:00 pm EST.      
 
 ## Screenshot
 
-![Screenshot of the error and JS code](./assets/Screenshot%20(10).png)
+![Screenshot of the Weather Dashboard Application](./assets/Screenshot-Weather-Dashboard.png)
+
+## GitHub link to the Weather Dashboard Application.
+
+[The Weather Dashboard Application](https://johndavidsmith.github.io/Mod6-Project/)
+
+## Credits
+
+* 
+## License
+* 
+
+## Badges
+* 
+
+## Features
+* 
+
+## How to Contribute
+* 
+
+## Test

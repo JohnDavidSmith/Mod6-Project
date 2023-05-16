@@ -31,8 +31,8 @@ function getApi(event) {
       // Clear previous search results
       currentContainer.innerHTML = "";
       // Create and append new elements for the search results
-      var cityName = document.createElement('h3');
-      var currentDate = document.createElement('h3');
+      var cityName = document.createElement('h4');
+      var currentDate = document.createElement('h5');
       var currentIcon = document.createElement('h3');
       var currentTemp = document.createElement('p');
       var currentHumidity = document.createElement('p');
@@ -40,6 +40,7 @@ function getApi(event) {
 
       cityName.textContent = data.name;
       currentDate.textContent = new Date().toLocaleDateString();
+      //currentDate.textContent = new Date(data.dt * 1000).toLocaleDateString();
       currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
       currentTemp.textContent = `Temperature: ${Math.round(data.main.temp - 273.15)}°C`;
       currentHumidity.textContent = `Humidity: ${data.main.humidity}%`;
@@ -97,15 +98,17 @@ function getApi1() {
         if (forecastObject.dt_txt.includes("00:00:00")) {
           // console.log(forecastObject);
           var forecastCard = document.createElement("div");
-          var cityName = document.createElement('h3');
-          var currentDate = document.createElement('h3');
+          var cityName = document.createElement('h4');
+          var currentDate = document.createElement('h5');
           var currentIcon = document.createElement('h3');
           var currentTemp = document.createElement('p');
           var currentHumidity = document.createElement('p');
           var currentWindSpeed = document.createElement('p');
 
           cityName.textContent = forecastObject.name;
-          currentDate.textContent = forecastObject.dt_txt;
+          // currentDate.textContent = forecastObject.dt_txt;
+          console.log("data1", data1)
+          currentDate.textContent = new Date(forecastObject.dt * 1000).toLocaleDateString();
           console.log(forecastObject.dt_txt);
           console.log(forecastObject);
           currentIcon.innerHTML = `<img src="https://openweathermap.org/img/w/${forecastObject.weather[0].icon}.png">`;
@@ -160,8 +163,8 @@ function saveSearch(city) {
 
         function displayWeatherData(data) {
 
-          var cityName = document.createElement('h3');
-          var currentDate = document.createElement('h3');
+          var cityName = document.createElement('h4');
+          var currentDate = document.createElement('h5');
           var currentIcon = document.createElement('h3');
           var currentTemp = document.createElement('p');
           var currentHumidity = document.createElement('p');
@@ -186,8 +189,8 @@ function saveSearch(city) {
             if (forecastObject.dt_txt.includes("00:00:00")) {
               // console.log(forecastObject);
               var forecastCard = document.createElement("div");
-              var cityName = document.createElement('h3');
-              var currentDate = document.createElement('h3');
+              var cityName = document.createElement('h4');
+              var currentDate = document.createElement('h5');
               var currentIcon = document.createElement('h3');
               var currentTemp = document.createElement('p');
               var currentHumidity = document.createElement('p');
@@ -230,9 +233,9 @@ function saveSearch(city) {
     // Remove oldest city if more than 8 saved
     searchHistory.shift();
   }
-
   searchHistory.push(city);
   localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  loadSavedSearches();
 }
 
 function loadSavedSearches() {
@@ -258,8 +261,8 @@ function loadSavedSearches() {
 
           function displayWeatherData(data) {
             currentContainer.innerHTML = "";
-            var cityName = document.createElement('h3');
-            var currentDate = document.createElement('h3');
+            var cityName = document.createElement('h4');
+            var currentDate = document.createElement('h5');
             var currentIcon = document.createElement('h3');
             var currentTemp = document.createElement('p');
             var currentHumidity = document.createElement('p');
@@ -281,16 +284,18 @@ function loadSavedSearches() {
           }
 
           displayWeatherData(data);
+          document.querySelector('#cityName').value = cityName;
+          getApi1();
         })
         .catch(error => {
           console.error('Error fetching data:', error);
         });
     });
 
-    if (searchHistory.length >= 8) {
-      // Remove oldest city if more than 8 saved
-      searchHistory.shift();
-    }
+    // if (searchHistory.length >= 8) {
+    //   // Remove oldest city if more than 8 saved
+    //   searchHistory.shift();
+    // }
 
     searchHistoryDiv.appendChild(button);
 
